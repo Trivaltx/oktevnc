@@ -63,8 +63,6 @@ CMD ["/opt/bin/entry_point.sh"]
 FROM debian-base as debian-utilities
 
 RUN apt-get -qqy update \
-    && apt-get -qqy --no-install-recommends install \
-        firefox htop terminator gnupg2 software-properties-common \
     && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
     && apt install -qqy --no-install-recommends ./google-chrome-stable_current_amd64.deb \
     && apt-add-repository ppa:remmina-ppa-team/remmina-next \
