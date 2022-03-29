@@ -1,0 +1,5 @@
+services:
+  novnc:
+    build: .
+    ports:
+      - 80:80
