@@ -18,7 +18,8 @@ RUN echo '/usr/sbin/sshd -D' >>/luo.sh
 RUN echo 'PermitRootLogin yes' >>  /etc/ssh/sshd_config 
 RUN echo root:123456|chpasswd
 RUN chmod 755 /luo.sh
-FROM ubuntu:20.04 as ubuntu-base
+
+FROM debian as debian-base
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NONINTERACTIVE_SEEN=true
@@ -59,7 +60,7 @@ CMD ["/opt/bin/entry_point.sh"]
 #============================
 # Utilities
 #============================
-FROM ubuntu-base as ubuntu-utilities
+FROM debian-base as debian-utilities
 
 RUN apt-get -qqy update \
     && apt-get -qqy --no-install-recommends install \
@@ -83,7 +84,7 @@ RUN apt-get -qqy update \
 #============================
 # GUI
 #============================
-FROM ubuntu-utilities as ubuntu-ui
+FROM debian-utilities as debian-ui
 
 ENV SCREEN_WIDTH=1280 \
     SCREEN_HEIGHT=720 \
